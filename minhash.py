@@ -58,8 +58,8 @@ for i in range(0,docCount):
 elapsed_time = time.time() - start_time
 print("Time taken to calculate Jaccard distance is: "+str(elapsed_time))
 numHashesList=[16,128]
-maxShingleID = 2**12-1
-nextPrime = 4091#4294967311
+maxShingleID = 2**32-1
+nextPrime = 4294967311
 
 
 def createRandomCoeffs(k):
