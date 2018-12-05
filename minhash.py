@@ -14,14 +14,17 @@ printable = set(string.printable)
 cachedStopWords = stopwords.words("english")
 reviewsList=[]
 shinglesReviewList={}
+#Reading the file to a list
 read_file=io.open('reviews.txt','r',encoding='utf-8')
 split= [line.strip() for line in read_file]
 for line in split:
     reviewsList.append(line.split('\t')[0])
 
+
 docCount1=len(reviewsList)
 id=-1
 for i in range(0,docCount1):
+    #Elimination of stopwords and special characters
     reviewsList[i]=reviewsList[i].lower().replace(",", " ").replace(".", " ").replace("!", " ").replace("?", " ").replace(";", " ").replace(":", " ").replace("*", " ").replace("(", " ").replace(")", " ").replace("/", " ")
     reviewsList[i]=' '.join([word for word in reviewsList[i].split() if word not in cachedStopWords])
     reviewsList[i]=filter(lambda x: x in printable, reviewsList[i])
@@ -30,7 +33,9 @@ for i in range(0,docCount1):
     if(len(wordList)>2):
         id+=1
         for w in range(0, len(wordList)-2):
+            #Creating 3 word shingles
             shingle=wordList[w]+" "+wordList[w+1]+" "+wordList[w+2]
+            #conversion to 32bit binary hash
             hashedShingle = binascii.crc32(shingle) & 0xffffffff
             output.add(hashedShingle)
         shinglesReviewList[str(id)]=output
@@ -40,7 +45,7 @@ mSize = int(docCount * (docCount - 1) / 2)
 JacSim = [0 for x in range(mSize)]
 estJacSim = [0 for x in range(mSize)]
 
-
+#function to map list to matrix index
 def getValue(i, j):
     if j < i:
         temp = i
@@ -49,6 +54,7 @@ def getValue(i, j):
     k = int(i * (docCount - (i + 1) / 2.0) + j - i) - 1
     return k
 
+#Calculation of pait wise jaccard similarity
 start_time = time.time()
 for i in range(0,docCount):
     for j in range(i+1,docCount):
@@ -61,7 +67,7 @@ numHashesList=[16,128]
 maxShingleID = 2**32-1
 nextPrime = 4294967311
 
-
+#function to generate random coefficients
 def createRandomCoeffs(k):
   randList = []
   while k > 0:
@@ -72,6 +78,7 @@ def createRandomCoeffs(k):
     k = k - 1
   return randList
 
+#function to calculate Mean Squared Error
 def calMSe():
     summ=0
     for i in range(0, docCount):
@@ -82,6 +89,7 @@ def calMSe():
     MSE=summ/docCount
     return(MSE)
 
+#Estimation of Jaccard distance using minHash technique for 16 and 128 permutations
 for numHashes in numHashesList:
 
     xcoeff = createRandomCoeffs(numHashes)
