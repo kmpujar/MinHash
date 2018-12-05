@@ -62,7 +62,7 @@ for i in range(0,docCount):
         s2=set(shinglesReviewList[str(j)])
         JacSim[getValue(i,j)]=(len(s1.intersection(s2)) / len(s1.union(s2)))
 elapsed_time = time.time() - start_time
-print("Time taken to calculate Jaccard distance is: "+str(elapsed_time))
+print("Time taken to calculate Jaccard distance is: "+str(elapsed_time)+" secs")
 numHashesList=[16,128]
 maxShingleID = 2**32-1
 nextPrime = 4294967311
@@ -117,4 +117,4 @@ for numHashes in numHashesList:
                     count +=1
             estJacSim[getValue(i, j)]= (count/numHashes)
     elapsed_time = time.time() - start_time
-    print("MSE for "+str(numHashes)+" random permutations is "+str(calMSe())+". Time taken:"+str(elapsed_time))
+    print("MSE for "+str(numHashes)+" random permutations is "+str(calMSe())+". Time taken: "+str(elapsed_time)+" secs")
