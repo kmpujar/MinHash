@@ -18,8 +18,8 @@ def get_labels(small_dic,dic,x,num):
 
 class input_transe:
     def __init__(self):
-        with open('../data/entities_relations.pkl','rb') as f:
-            self.ent_rel = pickle.load(f)
+        #with open('../data/entities_relations.pkl','rb') as f:
+        #    self.ent_rel = pickle.load(f)
         self.ent_dic = dict()
         self.rel_dic = dict()
         self.train = []
@@ -30,13 +30,13 @@ class input_transe:
         self.input()
     
     def input(self):
-        with open('../data/word2vec_embeddings.pkl','rb') as f:
-            tmp = pickle.load(f)
+        #with open('./drive/My Drive/word2vec_embeddings.pkl','rb') as f:
+        #    tmp = pickle.load(f)
 
-        w2v_entities = tmp[0]
-        w2v_relations = tmp[1]
-        if 'Zinput.pkl' in os.listdir():
-            with open('Zinput.pkl','rb') as f:
+        #w2v_entities = tmp[0]
+        #w2v_relations = tmp[1]
+        if 'Zinput.pkl' in os.listdir('./drive/My Drive/'):
+            with open('./drive/My Drive/Zinput.pkl','rb') as f:
                 temp = pickle.load(f)
                 self.train = temp[0]
                 self.test = temp[1]
