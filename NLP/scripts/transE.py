@@ -126,7 +126,7 @@ if __name__ == "__main__":
     zero = torch.FloatTensor([0.0]).cuda(0)
     train_batch = 512
     valid_batch = 64
-    train_transe(data,100)
+    train_transe(data,10)
     #torch.save(model,'./transE.model')
     model = torch.load('./transE.model')
     #run_transe_validation(data.valid)
